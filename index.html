@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escáner de Ventas Code 128</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Biblioteca Html5Qrcode para escanear códigos de barras -->
+    <script src="https://unpkg.com"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Escáner de Ventas</h1>
+        
+        <!-- Contenedor de la cámara -->
+        <div id="reader"></div>
+        <button id="btn-scan">Iniciar Cámara</button>
+
+        <!-- Información del producto detectado -->
+        <div id="product-info" class="card hidden">
+            <h3>Producto Detectado</h3>
+            <p><strong>Código:</strong> <span id="prod-code">-</span></p>
+            <p><strong>Nombre:</strong> <span id="prod-name">-</span></p>
+            <p><strong>Precio:</strong> $<span id="prod-price">-</span></p>
+            <button id="btn-add" class="btn-success">Agregar a la Venta</button>
+        </div>
+
+        <!-- Lista de ventas del día -->
+        <div class="sales-container">
+            <h3>Ventas del Día</h3>
+            <ul id="sales-list"></ul>
+            <p class="total">Total del Día: $<span id="total-day">0.00</span></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
