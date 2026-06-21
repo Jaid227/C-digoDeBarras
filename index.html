@@ -1,39 +1,72 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escáner de Ventas Code 128</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Biblioteca Html5Qrcode para escanear códigos de barras -->
-    <script src="https://unpkg.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Registro de Ventas · Asociación</title>
+    <!-- CSS se carga desde archivo externo (link) -->
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Librería JsBarcode para generar Code128 -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Escáner de Ventas</h1>
-        
-        <!-- Contenedor de la cámara -->
-        <div id="reader"></div>
-        <button id="btn-scan">Iniciar Cámara</button>
+    <!-- Contenedor principal -->
+    <div class="app-container" id="appContainer">
 
-        <!-- Información del producto detectado -->
-        <div id="product-info" class="card hidden">
-            <h3>Producto Detectado</h3>
-            <p><strong>Código:</strong> <span id="prod-code">-</span></p>
-            <p><strong>Nombre:</strong> <span id="prod-name">-</span></p>
-            <p><strong>Precio:</strong> $<span id="prod-price">-</span></p>
-            <button id="btn-add" class="btn-success">Agregar a la Venta</button>
-        </div>
+        <!-- Encabezado con modo claro/oscuro -->
+        <header class="app-header">
+            <h1>📱 Registro de Ventas</h1>
+            <button id="themeToggle" class="theme-btn" aria-label="Cambiar tema">🌙</button>
+        </header>
+
+        <!-- Panel de escaneo / agregar producto -->
+        <section class="scanner-panel">
+            <div class="input-group">
+                <input type="text" id="productCodeInput" placeholder="Código de barras (Code128)" />
+                <button id="scanBtn" class="scan-btn">📷 Escanear</button>
+            </div>
+            <div class="product-preview" id="productPreview">
+                <span>📦 Producto: <strong id="previewName">—</strong></span>
+                <span>🔢 <span id="previewCode">—</span></span>
+            </div>
+            <button id="addProductBtn" class="add-btn">➕ Agregar a la venta</button>
+        </section>
 
         <!-- Lista de ventas del día -->
-        <div class="sales-container">
-            <h3>Ventas del Día</h3>
-            <ul id="sales-list"></ul>
-            <p class="total">Total del Día: $<span id="total-day">0.00</span></p>
+        <section class="sales-list">
+            <div class="list-header">
+                <h2>Ventas del día</h2>
+                <button id="clearSalesBtn" class="clear-btn">🗑️ Borrar todo</button>
+            </div>
+            <ul id="salesList" class="sales-ul">
+                <!-- Los productos se renderizan dinámicamente -->
+                <li class="empty-message">No hay productos registrados hoy.</li>
+            </ul>
+        </section>
+
+        <!-- Footer con enlace -->
+        <footer class="app-footer">
+            <a href="https://jaid227.github.io/EntropiaDigital/" target="_blank" rel="noopener noreferrer">
+                © 2026 Mandrágora Entrópica | Desarrollo Web Estratégico
+            </a>
+        </footer>
+    </div>
+
+    <!-- Diálogo de confirmación personalizado para borrar con clave -->
+    <div id="clearModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h3>🔒 Confirmar borrado</h3>
+            <p>Ingresa la clave para eliminar todas las ventas del día:</p>
+            <input type="password" id="clearPasswordInput" placeholder="Clave" />
+            <div class="modal-actions">
+                <button id="modalConfirmBtn" class="modal-btn confirm">Borrar</button>
+                <button id="modalCancelBtn" class="modal-btn cancel">Cancelar</button>
+            </div>
+            <span id="modalError" class="modal-error hidden">Clave incorrecta</span>
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <!-- Script se carga desde archivo externo -->
+    <script src="script.js"></script>
 </body>
 </html>
